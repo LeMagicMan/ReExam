@@ -23,7 +23,6 @@ public enum PowderUnit implements Unit {
      * The base unit for powder measurements.
      */
     PINCH("pinch"),
-
     SPOON("spoon", 6F, PINCH),
     SACHET("sachet", 7F, SPOON),
     BOX("box", 6F, SACHET),
@@ -74,7 +73,6 @@ public enum PowderUnit implements Unit {
         this(name);
         this.conversionMap.put(unit, amount);
     }
-
     static {
         Unit.calculateConversionMaps(values());
     }

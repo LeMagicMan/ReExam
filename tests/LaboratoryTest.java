@@ -127,7 +127,6 @@ public class LaboratoryTest {
         testLab.addDevice(fridge);
         assertThrows(Laboratory.LaboratoryFullException.class,()-> testLab.addDevice(fridge2));
         assertThrows(Device.NotInLaboratoryException.class, fridge2::react);
-
     }
 }
 

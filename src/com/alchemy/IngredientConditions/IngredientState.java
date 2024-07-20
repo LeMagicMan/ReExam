@@ -72,7 +72,7 @@ public class IngredientState {
         public boolean isSolid() {
             return this.equals(State.Powder);
         }
-        boolean isLiquid() {
+        public boolean isLiquid() {
             return this.equals(State.Liquid);
         }
 
@@ -96,8 +96,8 @@ public class IngredientState {
     @Basic
     public boolean isSolid(){return state.isSolid();}
 
-    public Boolean isLiquid(){return state.isLiquid();}
-
+    public boolean isLiquid(){return state.isLiquid();}
+    //TODO
 
     /**********************************************************
      * Mutators
@@ -106,7 +106,7 @@ public class IngredientState {
     /**
      * method to change the state to the other one (change from fluid to solid or the other way)
      * @effect state is changed.
-     */
+     *///TODO
     void switchState(State switchstate) throws Exception {
         IngredientState.State[] states = IngredientState.State.values();
         for (IngredientState.State state : states) {

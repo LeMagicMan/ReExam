@@ -23,7 +23,6 @@ public enum FluidUnit implements Unit {
      * The base unit for fluid measurements.
      */
     DROP("drop"),
-
     SPOON("spoon", 8F, DROP),
     VIAL("sachet", 5F, SPOON),
     BOTTLE("box", 3F, VIAL),

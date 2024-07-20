@@ -29,7 +29,7 @@ public class AlchemicIngredient {
     /**
      * Variable referencing the Temperature of the ingredient
      */
-    private Temperature temperature;
+    private  Temperature temperature;
 
     /**
      * Variable referencing the State of the ingredient

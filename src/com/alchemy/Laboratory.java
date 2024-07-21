@@ -9,9 +9,6 @@ import com.alchemy.recipes.Recipe.*;
 import com.alchemy.quantity.Unit;
 import java.util.ArrayList;
 
-import static com.alchemy.IngredientConditions.IngredientState.State.Liquid;
-import static com.alchemy.IngredientConditions.IngredientState.State.Powder;
-
 /**
  * Class representing a Laboratory.
  * Only in a laboratory can something happen with alchemical ingredients.
@@ -297,8 +294,6 @@ public class Laboratory {
         }
         try {
             bringBackToStandardTemperature(container.getContent());
-            removeDevice(tempCool);
-            removeDevice(tempHeat);
             IngredientContainer container1 = tempCool.getContents();
             IngredientContainer container2 = tempHeat.getContents();
             if(container1!=null){
@@ -563,12 +558,16 @@ public class Laboratory {
     /**
      * Removes the specified device from the list of devices.
      * Also, dissociates the device from the laboratory.
-     *
      * @param device The Device to be removed.
+     * @throws LaboratoryMissingDeviceException if device is not in laboratory, but catches it gracefully
      */
-    public void removeDevice(Device device) {
-        devices.remove(device);
-        device.setLaboratory(null);
+    public void removeDevice(Device device) throws LaboratoryMissingDeviceException {
+        if(!(this.devices.contains(device))){
+            throw new LaboratoryMissingDeviceException("Device does not exist");
+        }else {
+            devices.remove(device);
+            device.setLaboratory(null);
+        }
     }
 
     /**

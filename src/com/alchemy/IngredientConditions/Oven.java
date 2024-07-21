@@ -84,8 +84,10 @@ public class Oven extends Device {
      * Methods
      **********************************************************/
 
+    //TODO:
     /**
      * method for adding an ingredient to the oven
+     * @pre device must be empty
      * @param container the container containing the ingredient that has to be added to the device
      * @throws DeviceFullException if there already is an ingredient in the oven, the device is considered full
      */
@@ -101,6 +103,7 @@ public class Oven extends Device {
 
     /**
      * method to start the reaction
+     * @pre device must be in laboratory
      * @effect the temperature of the content in the oven will be heated to the temperature of the oven with a deviation of up to 5 degrees
      *if the ingredient is hotter than the temperature of the oven, nothing happens.
      */

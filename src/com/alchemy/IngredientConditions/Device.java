@@ -88,6 +88,7 @@ public abstract class Device {
         container.destroy();
     }
 
+
     public void react() throws NotInLaboratoryException {
 
     }//TODO

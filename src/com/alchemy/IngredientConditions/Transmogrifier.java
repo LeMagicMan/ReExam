@@ -28,15 +28,34 @@ public class Transmogrifier extends Device {
     /**********************************************************
      * Methods
      **********************************************************/
-    
+
+    //TODO
     /**
      * method to start the reaction
+     * @pre device must be in laboratory
      * @throws NotInLaboratoryException if the transmogrifier isn't in a Laboratory
      */
-    //@Override
-    public void react(IngredientState.State state) throws Exception {
-        if(!isInLaboratory()){throw new NotInLaboratoryException("transmogrifier not in a Laboratory");}
-        ingredient.getState().switchState(state);
+    @Override
+    public void react() throws NotInLaboratoryException {
+        if(!isInLaboratory()){
+            throw new NotInLaboratoryException("transmogrifier not in a Laboratory");
+        }
+    }
+
+    /**
+     * method to start the reaction
+     * @pre device must be in laboratory
+     * @throws NotInLaboratoryException if the transmogrifier isn't in a Laboratory
+     */
+    public void react(IngredientState.State state) throws NotInLaboratoryException {
+        if(!isInLaboratory()){
+            throw new NotInLaboratoryException("transmogrifier not in a Laboratory");
+        }
+        try {
+            ingredient.getState().switchState(state);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         switch(state) {
             case Powder:
                 if(ingredient.getState().isSolid()) {
@@ -53,6 +72,7 @@ public class Transmogrifier extends Device {
 
     /**
      * method to add the contents of a container to the transmogrifier, destroying the container in the process
+     * @pre device must be empty
      * @param container the container containing the ingredient that has to be added to the device
      * @throws DeviceFullException if there already is an ingredient in the transmogrifier
      */

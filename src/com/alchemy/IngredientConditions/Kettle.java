@@ -107,8 +107,10 @@ public class Kettle extends Device {
      * Methods
      **********************************************************/
 
+    //TODO:
     /**
      * method to start the reaction
+     * @pre device must be in laboratory
      * @effect the contents will be changed to a new ingredient with the details specified in newName(), newState(), newQuantity(), newTemp() and newStandardTemp()
      */
     @Override

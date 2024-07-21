@@ -83,8 +83,10 @@ public class CoolingBox extends Device {
      * Mutators
      **********************************************************/
 
+    //TODO:
     /**
      * method used to add an ingredient to the device
+     * @pre device must be empty
      * @param container the container containing the ingredient that has to be added to the device
      * @throws DeviceFullException if the device is full, deviceFullException is thrown.
      */
@@ -99,8 +101,11 @@ public class CoolingBox extends Device {
 
     }
 
+    //TODO:
     /**
      * method to start the reaction
+     * @pre device must be in laboratory
+     * @pre ingredient cannot be null
      * @effect the temperature of the content in the coolingbox will be cooled to the temperature of the coolingbox
      * if the ingredient is colder than the temperature of the coolingbox, nothing happens.
      *  |if(!ingredientTemperature.isColderThan(temperature){

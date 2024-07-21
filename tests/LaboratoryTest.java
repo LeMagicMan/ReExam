@@ -128,5 +128,26 @@ public class LaboratoryTest {
         assertThrows(Laboratory.LaboratoryFullException.class,()-> testLab.addDevice(fridge2));
         assertThrows(Device.NotInLaboratoryException.class, fridge2::react);
     }
+    //TODO:
+    @Test
+    public void removeDeviceTest() throws Laboratory.LaboratoryMissingDeviceException {
+        Oven oven = new Oven();
+        CoolingBox fridge = new CoolingBox();
+        try {
+            testLab.addDevice(oven);
+            testLab.addDevice(fridge);
+        } catch (Laboratory.LaboratoryFullException e) {
+            throw new RuntimeException(e);
+        }
+        assertTrue(testLab.getDevices().contains(oven) && testLab.getDevices().contains(fridge));
+        testLab.removeDevice(oven);
+        assertFalse(testLab.getDevices().contains(oven));
+        assertTrue(testLab.getDevices().contains(fridge));
+        assertThrows(Laboratory.LaboratoryMissingDeviceException.class,()-> testLab.removeDevice(oven));
+        assertFalse(testLab.getDevices().contains(oven));
+        assertTrue(testLab.getDevices().contains(fridge));
+        testLab.removeDevice(fridge);
+        assertTrue(testLab.getDevices().isEmpty());
+    }
 }
 

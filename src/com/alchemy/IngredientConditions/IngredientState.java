@@ -31,20 +31,6 @@ public class IngredientState {
      **********************************************************/
 
     /**
-     * constructor to make a state based on a boolean
-     * @param solid whether the state is solid
-     */
-    //@Raw
-    //public IngredientState(boolean solid){
-        //if(solid){
-            //state = State.Powder;
-        //}
-        //else{
-            //state = State.Liquid;
-        //}
-    //}
-
-    /**
      * constructor to make a state
      * @param state whether the state is solid
      */
@@ -105,6 +91,8 @@ public class IngredientState {
 
     /**
      * method to change the state to the other one (change from fluid to solid or the other way)
+     * @pre given switchstate must be a valid state
+     * @param switchstate the new state of the ingredient
      * @effect state is changed.
      *///TODO
     void switchState(State switchstate) throws Exception {
@@ -117,15 +105,6 @@ public class IngredientState {
         }
         throw new Exception("Invalid state: " + switchstate);
     }
-        //IngredientState.State state = IngredientState.State.Liquid;
-
-        //if(state.isSolid()){
-            //state = State.Liquid;
-        //}
-        //else{
-            //state = State.Powder;
-        //}
-   //}
 }
 
 

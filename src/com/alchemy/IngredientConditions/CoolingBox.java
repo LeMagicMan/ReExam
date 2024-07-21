@@ -22,7 +22,7 @@ public class CoolingBox extends Device {
     /**
      * Variable referencing the Temperature of the coolingBox
      */
-    private final Temperature temperature;
+    private Temperature temperature;
 
 
     /**********************************************************
@@ -83,7 +83,7 @@ public class CoolingBox extends Device {
      * Mutators
      **********************************************************/
 
-    //TODO:
+
     /**
      * method used to add an ingredient to the device
      * @pre device must be empty
@@ -101,7 +101,7 @@ public class CoolingBox extends Device {
 
     }
 
-    //TODO:
+
     /**
      * method to start the reaction
      * @pre device must be in laboratory
@@ -130,8 +130,8 @@ public class CoolingBox extends Device {
     }
 
     /**
-     * method to cool coolingboxes own temperature by 10 degrees
-     * @effect the temperature of coolinbox will be lowered by 10 degrees
+     * method to cool cooling boxes own temperature by 10 degrees
+     * @effect the temperature of coolingbox will be lowered by 10 degrees
      */
     public void lowerOwnTemp() {
         temperature.cool(10F);

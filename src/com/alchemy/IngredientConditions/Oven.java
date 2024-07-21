@@ -84,7 +84,6 @@ public class Oven extends Device {
      * Methods
      **********************************************************/
 
-    //TODO:
     /**
      * method for adding an ingredient to the oven
      * @pre device must be empty
@@ -103,6 +102,7 @@ public class Oven extends Device {
 
     /**
      * method to start the reaction
+     * @pre Device.getContents may not be null
      * @pre device must be in laboratory
      * @effect the temperature of the content in the oven will be heated to the temperature of the oven with a deviation of up to 5 degrees
      *if the ingredient is hotter than the temperature of the oven, nothing happens.
@@ -112,15 +112,13 @@ public class Oven extends Device {
         if(!isInLaboratory()){
             throw new NotInLaboratoryException("Oven not in Laboratory");
         }
-        if(ingredient == null){
-            return;
-        }
-        else{
+        if(ingredient != null){
             Temperature ingredientTemperature= ingredient.getTemperature();
             Float ingredientHotness = ingredientTemperature.getHotness();
             Float ingredientColdness = ingredientTemperature.getColdness();
             Float hotness = temperature.getHotness();
             Float coldness = temperature.getColdness();
+
             if(ingredientHotness > hotness | ingredientColdness< coldness |(ingredientHotness.equals(hotness) && ingredientColdness.equals(coldness))){
                 return;
             }

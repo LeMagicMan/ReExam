@@ -120,7 +120,7 @@ public class Kettle extends Device {
             throw new NotInLaboratoryException("Kettle not in Laboratory");
         }
         else{
-            if(ingredients.size() <2){
+            if(!(ingredients.size() >=2)){
                 return; //no ingredients to mix
             }
             IngredientName newName = newName();
@@ -169,7 +169,6 @@ public class Kettle extends Device {
         }
 
         try {
-            System.out.println(strippedNames.getFirst());
             IngredientName newName = new IngredientName(strippedNames.getFirst());
             newName.setName(name);
             return newName;
@@ -185,7 +184,8 @@ public class Kettle extends Device {
     private IngredientState newState(){
         Float smallestDiff = ingredients.getFirst().getTemperature().differenceFrom(targetTemp);
         IngredientState newState = new IngredientState(Powder); //powder is overwritten by fluid
-        for(AlchemicIngredient ingredient: ingredients){
+        for(int i = 1; i < ingredients.size(); i++){
+            AlchemicIngredient ingredient = ingredients.get(i);
             Float diff = ingredient.getTemperature().differenceFrom(targetTemp);
             if(diff<smallestDiff){
                 smallestDiff = diff;
@@ -206,7 +206,6 @@ public class Kettle extends Device {
         Quantity newQuantity = null;
         switch (state) {
             case Powder:
-                if (state.isSolid()) {
                     Float pinches = 0F;
                     int liquidFractions = 0;
                         for (AlchemicIngredient ingredient : ingredients) {
@@ -221,10 +220,8 @@ public class Kettle extends Device {
                     pinches += (float) ((liquidFractions - (liquidFractions % dropInSpoon)) / dropInSpoon) * pinchInSpoon;
                     int pinchesRounded = (int) (pinches + .5); //rounding
                     newQuantity = new Quantity(pinchesRounded, PowderUnit.PINCH);
-                }
                 break;
             case Liquid:
-                if (state.isLiquid()) {
                     Float drops = 0F;
                     int solidFractions = 0;
                         for (AlchemicIngredient ingredient : ingredients) {
@@ -239,7 +236,6 @@ public class Kettle extends Device {
                     drops += (float) ((solidFractions - (solidFractions % pinchInSpoon)) / pinchInSpoon) * dropInSpoon;
                     int dropsRounded = (int) (drops + .5); //rounding
                     newQuantity = new Quantity(dropsRounded, FluidUnit.DROP);
-                }
                 break;
             }
         return newQuantity;

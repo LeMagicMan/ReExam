@@ -88,23 +88,16 @@ public abstract class Device {
         container.destroy();
     }
 
-
-    public void react() throws NotInLaboratoryException {
-
-    }//TODO
+    /** //TODO
+     *
+     * @throws NotInLaboratoryException
+     */
+    public abstract void react() throws NotInLaboratoryException;
 
 
     /**********************************************************
      * Inspectors
      **********************************************************/
-
-    /**
-     * @param ingredient Check if ingredient can be added to the device
-     * @return true
-     */
-    public boolean canAddIngredient(AlchemicIngredient ingredient) {
-        return true;
-    }//TODO
 
     /**
      * Check if device is in a Laboratory

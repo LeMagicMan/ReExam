@@ -199,16 +199,6 @@ public class Quantity {
                 continue; // skip smallest and largest unit
             }
             smallestContainerUnit = getSmallestContainer(null, smallestContainerAmount, other);
-            //TODO
-            //Float converted = unit.convertTo(other, amount);
-            //if (smallestContainerAmount > 1 && converted < smallestContainerAmount) {
-            //smallestContainerAmount = converted;
-            //smallestContainerUnit = other;
-            //} else if (smallestContainerAmount <= 1 && converted > smallestContainerAmount && converted <= 1) {
-            //smallestContainerAmount = converted;
-            //smallestContainerUnit = other;
-
-            //}
         }
         return smallestContainerUnit;
     }
@@ -242,16 +232,6 @@ public class Quantity {
                     continue; // skip smallest and largest unit
                 }
                 smallestContainerUnit = getSmallestContainer(null, smallestContainerAmount, other);
-                //TODO
-                //Float converted = unit.convertTo(other, amount);
-                //if (smallestContainerAmount > 1 && converted < smallestContainerAmount) {
-                    //smallestContainerAmount = converted;
-                    //smallestContainerUnit = other;
-                //} else if (smallestContainerAmount <= 1 && converted > smallestContainerAmount && converted <= 1) {
-                    //smallestContainerAmount = converted;
-                    //smallestContainerUnit = other;
-
-                //}
             }
         return smallestContainerUnit;
     }

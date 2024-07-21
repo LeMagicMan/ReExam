@@ -177,7 +177,6 @@ public class Laboratory {
                         comparisonContainer = new Quantity(this.getFreeSpace(), FluidUnit.STOREROOM);
                     }
             }
-            //TODO
             if (comparisonContainer != null) {
                 return container.getContent().getQuantity().isSmallerThanOrEqualTo(comparisonContainer);
             }else{
@@ -201,70 +200,13 @@ public class Laboratory {
             } catch (Device.DeviceFullException | LaboratoryMissingDeviceException e) {
                 throw new RuntimeException(e);
             }
-            //Device tempCool = new CoolingBox();
-            //Device tempHeat = new Oven();
-            //if (this.canAddDevice(tempCool)) {
-                //try {
-                    //this.addDevice(tempCool);
-                //} catch (LaboratoryFullException e) {
-                    //throw new RuntimeException(e);
-                //}
-            //}
-            //if (this.canAddDevice(tempHeat)) {
-                //try {
-                    //this.addDevice(tempHeat);
-                //} catch (LaboratoryFullException e) {
-                    //throw new RuntimeException(e);
-                //}
-            //}
-            //try {
-                //standardTempWithTempDevice(container, tempCool, tempHeat);
-                //this.removeDevice(tempCool);
-                //this.removeDevice(tempHeat);
-            //} catch (Device.DeviceFullException | LaboratoryMissingDeviceException e) {
-                //throw new RuntimeException(e);
-            //}
+
             containers.add(container);
         } else{
             throw new IllegalArgumentException("can't add container");
         }
     }
 
-//    public void StandardTemp(IngredientContainer container){
-//        Device tempCool = new CoolingBox();
-//        Device tempHeat = new Oven();
-//        if (this.canAddDevice(tempCool)) {
-//            try {
-//                this.addDevice(tempCool);
-//            } catch (LaboratoryFullException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        if (this.canAddDevice(tempHeat)) {
-//            try {
-//                this.addDevice(tempHeat);
-//            } catch (LaboratoryFullException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        try {
-//            bringBackToStandardTemperature(container.getContent());
-//            removeDevice(tempCool);
-//            removeDevice(tempHeat);
-//            IngredientContainer container1 = tempCool.getContents();
-//            IngredientContainer container2 = tempHeat.getContents();
-//            if(container1!=null){
-//                container1.destroy();
-//            }
-//            if(container2 != null){
-//                tempHeat.getContents().destroy();
-//            }
-//            this.removeDevice(tempCool);
-//            this.removeDevice(tempHeat);
-//        } catch (Device.DeviceFullException | LaboratoryMissingDeviceException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
     /**
      * Adjusts the temperature of the given IngredientContainer to a standard temperature using the provided devices.
      * After the adjustment, the devices are removed and any contents they may have are destroyed.
@@ -308,19 +250,6 @@ public class Laboratory {
             throw new RuntimeException(e);
         }
     }
-    //private void standardTempWithTempDevice(IngredientContainer container, Device tempCool, Device tempHeat) throws Device.DeviceFullException, LaboratoryMissingDeviceException {
-        //bringBackToStandardTemperature(container.getContent());
-        //removeDevice(tempCool);
-        //removeDevice(tempHeat);
-        //IngredientContainer container1 = tempCool.getContents();
-        //IngredientContainer container2 = tempHeat.getContents();
-        //if(container1!=null){
-            //container1.destroy();
-        //}
-        //if(container2 != null){
-            //tempHeat.getContents().destroy();
-        //}
-    //}
 
     /**
      * Adds a specified amount of an IngredientContainer to the laboratory.
@@ -335,37 +264,12 @@ public class Laboratory {
      */
     public void addContainer(IngredientContainer container, int amount) throws IngredientName.IllegalNameException{
         for (int i = 0; i < amount; i++) {
-            //TODO
             if (container.getContent() != null) {
                 try {
                     standardTempWithTempDevice(container);
                 } catch (Device.DeviceFullException | LaboratoryMissingDeviceException e) {
                     throw new RuntimeException(e);
                 }
-
-                //Device tempCool = new CoolingBox();
-                //Device tempHeat = new Oven();
-                //if (this.canAddDevice(tempCool)) {
-                    //try {
-                        //this.addDevice(tempCool);
-                    //} catch (LaboratoryFullException e) {
-                        //throw new RuntimeException(e);
-                    //}
-                //}
-                //if (this.canAddDevice(tempHeat)) {
-                    //try {
-                        //this.addDevice(tempHeat);
-                    //} catch (LaboratoryFullException e) {
-                        //throw new RuntimeException(e);
-                    //}
-                //}
-                //try {
-                    //standardTempWithTempDevice(container, tempCool, tempHeat);
-                    //this.removeDevice(tempCool);
-                    //this.removeDevice(tempHeat);
-                //} catch (Device.DeviceFullException | LaboratoryMissingDeviceException e) {
-                    //throw new RuntimeException(e);
-                //}
                 AlchemicIngredient partialIngredient = new AlchemicIngredient(container.getContent().getFullName(), container.getContent().getTemperature(), container.getContent().getState(), container.getContent().getQuantity().convertTo(container.getContent().getQuantity().getUnit()) - amount);
                 AlchemicIngredient labIngredient = new AlchemicIngredient(container.getContent().getFullName(), container.getContent().getTemperature(), container.getContent().getState(), amount);
                 IngredientContainer partialContainer = new IngredientContainer(partialIngredient, container.getContainerUnit());
@@ -406,7 +310,6 @@ public class Laboratory {
                 boolean found = false;
                 ArrayList<IngredientContainer> containers1 = this.containers;
                 for (IngredientContainer container : containers1) {
-                    System.out.println(container.getContent().getFullName());
                     if ((container.getContent().getBasicName().equals(ingredientName))) {
                         Float removedAmount = container.getContent().getQuantity().convertTo(containerUnit);
                         if (newAmount < removedAmount) {
@@ -603,18 +506,18 @@ public class Laboratory {
         Temperature targetTemp = ingredient.getStandardType().getStandardTemperature();
         if(ingredient.getTemperature().isColderThan(targetTemp)){
             for(Device device: devices){
-                if(device.getClass() == Oven.class){
-                    if(ingredient.getState().isSolid()) {
-                        ((Oven) device).addIngredient(new IngredientContainer(ingredient, ingredient.getQuantity().getSmallestPowderContainer()));
-                    }
-                    else{
-                        ((Oven) device).addIngredient(new IngredientContainer(ingredient, ingredient.getQuantity().getSmallestPowderContainer()));
-                    }
-                    try {
-                        device.react();
-                        return(device.getContents().getContent());
-                    } catch (Device.NotInLaboratoryException e) {
-                        throw new RuntimeException(e);
+                if(device.getClass() == Oven.class) {
+                    switch (ingredient.getState().getState()) {
+                        case Powder:
+                            ((Oven) device).addIngredient(new IngredientContainer(ingredient, ingredient.getQuantity().getSmallestPowderContainer()));
+                        case Liquid:
+                            ((Oven) device).addIngredient(new IngredientContainer(ingredient, ingredient.getQuantity().getSmallestPowderContainer()));
+                        try {
+                            device.react();
+                            return (device.getContents().getContent());
+                        } catch (Device.NotInLaboratoryException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
@@ -622,10 +525,10 @@ public class Laboratory {
         else{
             for(Device device: devices){
                 if(device.getClass() == CoolingBox.class){
-                    if(ingredient.getQuantity().isPowderUnit()) {
+                    if (ingredient.getQuantity().isPowderUnit()) {
                         ((CoolingBox) device).addIngredient(new IngredientContainer(ingredient, ingredient.getQuantity().getSmallestPowderContainer()));
                     }
-                    else if(ingredient.getQuantity().isFluidUnit()){
+                    else if (ingredient.getQuantity().isFluidUnit()) {
                         ((CoolingBox) device).addIngredient(new IngredientContainer(ingredient, ingredient.getQuantity().getSmallestFluidContainer()));
                     }
                     try {

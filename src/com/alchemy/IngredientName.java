@@ -340,10 +340,10 @@ public class IngredientName {
     private boolean isValidIngredientPartName(String name) {
         // the name mustn't contain any blacklisted words
         for (String word : blacklistedWordsIngredientPart) {
-            if (name.contains(word)) return false;
+            if (name.contains(word)) {return false;}
         }
         for (String word : blacklistedWords) {
-            if (name.contains(word)) return false;
+            if (name.contains(word)) {return false;}
         }
         // the name must match the ingredient part regex and must not be empty
         if (!name.matches(ingredientPartRegex) || name.isEmpty()) {

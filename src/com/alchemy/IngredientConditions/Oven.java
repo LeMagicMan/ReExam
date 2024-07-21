@@ -13,17 +13,7 @@ import java.util.Random;
  * @author SimonVandeputte
  * @version 1.0
 **********************************************************/
-public class Oven extends Device {
-
-    /**********************************************************
-     * Variables
-     **********************************************************/
-
-    /**
-     * Variable referencing the Temperature of the oven
-     */
-    private Temperature temperature;
-
+public class Oven extends TemperatureChangers {
 
     /**********************************************************
      * Constructors
@@ -36,7 +26,7 @@ public class Oven extends Device {
      */
     @Raw
     public Oven(Float coldness, Float hotness){
-        this.temperature = new Temperature(0F,0F);
+        super(new Temperature(0F,0F),5, false);
         setTemperature(coldness,hotness);
     }
 
@@ -45,7 +35,7 @@ public class Oven extends Device {
      */
     @Raw
     public Oven(){
-        this.temperature = new Temperature(0F,20F);
+        super(new Temperature(0F,20F),5, false);
     }
 
 
@@ -97,36 +87,6 @@ public class Oven extends Device {
         }
         else{
             super.addIngredient(container);
-        }
-    }
-
-    /**
-     * method to start the reaction
-     * @pre Device.getContents may not be null
-     * @pre device must be in laboratory
-     * @effect the temperature of the content in the oven will be heated to the temperature of the oven with a deviation of up to 5 degrees
-     *if the ingredient is hotter than the temperature of the oven, nothing happens.
-     */
-    @Override
-    public void react() throws NotInLaboratoryException {
-        if(!isInLaboratory()){
-            throw new NotInLaboratoryException("Oven not in Laboratory");
-        }
-        if(ingredient != null){
-            Temperature ingredientTemperature= ingredient.getTemperature();
-            Float ingredientHotness = ingredientTemperature.getHotness();
-            Float ingredientColdness = ingredientTemperature.getColdness();
-            Float hotness = temperature.getHotness();
-            Float coldness = temperature.getColdness();
-
-            if(ingredientHotness > hotness | ingredientColdness< coldness |(ingredientHotness.equals(hotness) && ingredientColdness.equals(coldness))){
-                return;
-            }
-            else{
-                Random rand = new Random();
-                int randomDeviation = rand.nextInt(11)-5;
-                ingredientTemperature.heat(ingredientColdness-coldness+hotness-ingredientHotness + randomDeviation);
-            }
         }
     }
 

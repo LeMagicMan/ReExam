@@ -84,7 +84,7 @@ public class Kettle extends Device {
      */
     @Override
     public IngredientContainer getContents(){
-        if(ingredients ==null){
+        if(ingredients == null){
             return null;
         }
         else if( ingredients.isEmpty()){
@@ -120,28 +120,28 @@ public class Kettle extends Device {
             throw new NotInLaboratoryException("Kettle not in Laboratory");
         }
         else{
-            if(!(ingredients.size() >=2)){
-                return; //no ingredients to mix
+
+            if (ingredients.size() >= 2) {
+                IngredientName newName = newName();
+                IngredientState newState = newState();
+                Quantity newQuantity = newQuantity(newState.getState());
+                Temperature newTemp = newTemp(newQuantity);
+                Temperature standardTemp = newStandardTemp();
+                try {
+                    newIngredientType = new IngredientType(newName, standardTemp, newState);
+                } catch (IngredientName.IllegalNameException e) {
+                    throw new RuntimeException(e);
+                }
+                AlchemicIngredient newIngredient = new AlchemicIngredient(newIngredientType, newQuantity);
+                if (standardTemp.isColderThan(newTemp)) {
+                    newIngredient.getTemperature().heat(standardTemp.differenceFrom(newTemp));
+                } else {
+                    newIngredient.getTemperature().cool(standardTemp.differenceFrom(newTemp));
+                }
+                ingredients.clear();
+                ingredients.add(newIngredient);
             }
-            IngredientName newName = newName();
-            IngredientState newState = newState();
-            Quantity newQuantity = newQuantity(newState.getState());
-            Temperature newTemp = newTemp(newQuantity);
-            Temperature standardTemp = newStandardTemp();
-            try {
-                newIngredientType = new IngredientType(newName,standardTemp,newState);
-            } catch (IngredientName.IllegalNameException e) {
-                throw new RuntimeException(e);
-            }
-            AlchemicIngredient newIngredient = new AlchemicIngredient(newIngredientType,newQuantity);
-            if(standardTemp.isColderThan(newTemp)){
-                newIngredient.getTemperature().heat(standardTemp.differenceFrom(newTemp));
-            }
-            else{
-                newIngredient.getTemperature().cool(standardTemp.differenceFrom(newTemp));
-            }
-            ingredients.clear();
-            ingredients.add(newIngredient);
+
         }
 
     }
@@ -184,8 +184,10 @@ public class Kettle extends Device {
     private IngredientState newState(){
         Float smallestDiff = ingredients.getFirst().getTemperature().differenceFrom(targetTemp);
         IngredientState newState = new IngredientState(Powder); //powder is overwritten by fluid
-        for(int i = 1; i < ingredients.size(); i++){
+
+        for (int i = 1; i < ingredients.size(); i++){
             AlchemicIngredient ingredient = ingredients.get(i);
+
             Float diff = ingredient.getTemperature().differenceFrom(targetTemp);
             if(diff<smallestDiff){
                 smallestDiff = diff;
@@ -194,6 +196,7 @@ public class Kettle extends Device {
                 newState = new IngredientState(Liquid);
             }
         }
+
         return newState;
     }
 
@@ -206,6 +209,7 @@ public class Kettle extends Device {
         Quantity newQuantity = null;
         switch (state) {
             case Powder:
+
                     Float pinches = 0F;
                     int liquidFractions = 0;
                         for (AlchemicIngredient ingredient : ingredients) {
@@ -220,8 +224,10 @@ public class Kettle extends Device {
                     pinches += (float) ((liquidFractions - (liquidFractions % dropInSpoon)) / dropInSpoon) * pinchInSpoon;
                     int pinchesRounded = (int) (pinches + .5); //rounding
                     newQuantity = new Quantity(pinchesRounded, PowderUnit.PINCH);
+
                 break;
             case Liquid:
+
                     Float drops = 0F;
                     int solidFractions = 0;
                         for (AlchemicIngredient ingredient : ingredients) {
@@ -236,6 +242,7 @@ public class Kettle extends Device {
                     drops += (float) ((solidFractions - (solidFractions % pinchInSpoon)) / pinchInSpoon) * dropInSpoon;
                     int dropsRounded = (int) (drops + .5); //rounding
                     newQuantity = new Quantity(dropsRounded, FluidUnit.DROP);
+
                 break;
             }
         return newQuantity;

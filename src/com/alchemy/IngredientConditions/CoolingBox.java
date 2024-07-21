@@ -13,17 +13,7 @@ import com.alchemy.IngredientContainer;
  * @author SimonVandeputte
  * @version 1.0
 **********************************************************/
-public class CoolingBox extends Device {
-
-    /**********************************************************
-     * Variables
-     **********************************************************/
-
-    /**
-     * Variable referencing the Temperature of the coolingBox
-     */
-    private Temperature temperature;
-
+public class CoolingBox extends TemperatureChangers {
 
     /**********************************************************
      * Constructors
@@ -36,7 +26,8 @@ public class CoolingBox extends Device {
      */
     @Raw
     public CoolingBox(Float coldness, Float hotness) {
-        this.temperature = new Temperature(0F,0F);setTemperature(coldness,hotness);
+        super(new Temperature(0F,0F),0, true);
+        setTemperature(coldness, hotness);
     }
 
     /**
@@ -44,7 +35,7 @@ public class CoolingBox extends Device {
      */
     @Raw
     public CoolingBox() {
-        this.temperature = new Temperature(0F,20F);
+        super(new Temperature(0F,20F),0, true);
     }
 
 
@@ -106,32 +97,17 @@ public class CoolingBox extends Device {
      * method to start the reaction
      * @pre device must be in laboratory
      * @pre ingredient cannot be null
-     * @effect the temperature of the content in the coolingbox will be cooled to the temperature of the coolingbox
-     * if the ingredient is colder than the temperature of the coolingbox, nothing happens.
+     * @effect the temperature of the content in the cooling box will be cooled to the temperature of the cooling box
+     * if the ingredient is colder than the temperature of the cooling box, nothing happens.
      *  |if(!ingredientTemperature.isColderThan(temperature){
      *  |ingredientTemperature = temperature
      *  |}
      */
-    @Override
-    public void react() throws NotInLaboratoryException {
-        if(!isInLaboratory()){
-            throw new NotInLaboratoryException("CoolingBox not in Laboratory");
-        }
-        if(ingredient != null){
-            Temperature ingredientTemperature = ingredient.getTemperature();
-            Float ingredientHotness = ingredientTemperature.getHotness();
-            Float ingredientColdness = ingredientTemperature.getColdness();
-            Float hotness = temperature.getHotness();
-            Float coldness = temperature.getColdness();
-            if(!ingredientTemperature.isColderThan(temperature)){
-                ingredientTemperature.cool(ingredientHotness-hotness+coldness-ingredientColdness);
-            }
-        }
-    }
+
 
     /**
      * method to cool cooling boxes own temperature by 10 degrees
-     * @effect the temperature of coolingbox will be lowered by 10 degrees
+     * @effect the temperature of cooling box will be lowered by 10 degrees
      */
     public void lowerOwnTemp() {
         temperature.cool(10F);

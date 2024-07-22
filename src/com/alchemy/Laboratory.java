@@ -9,7 +9,7 @@ import com.alchemy.recipes.Recipe.*;
 import com.alchemy.quantity.Unit;
 import java.util.ArrayList;
 
-/**
+/**********************************************************
  * Class representing a Laboratory.
  * Only in a laboratory can something happen with alchemical ingredients.
  * Devices must therefore be in the lab before they can be used.
@@ -19,8 +19,12 @@ import java.util.ArrayList;
  * @author BenDeMets
  * @author SimonVandeputte
  * @version 1.0
- */
+ **********************************************************/
 public class Laboratory {
+
+    /**********************************************************
+     * Variables
+     **********************************************************/
 
     /**
      * A list of devices.
@@ -38,6 +42,25 @@ public class Laboratory {
      * amount of storerooms the Laboratory has
      */
     private int storeroom;
+
+    /**********************************************************
+     * Constructors
+     **********************************************************/
+
+    //TODO: test this constructor
+    /**
+     * Constructs a new Laboratory with the specified number of storerooms.
+     * Initializes the lists of devices and alchemic containers.
+     *
+     * @pre amount >= 1
+     * @post A new Laboratory object is created with the specified number of storerooms. The lists of devices and containers are initialized.
+     */
+    @Raw
+    public Laboratory(){
+        this.storeroom = 1;
+        devices = new ArrayList<>();
+        containers = new ArrayList<>();
+    }
 
     /**
      * Constructs a new Laboratory with the specified number of storerooms.
@@ -58,6 +81,10 @@ public class Laboratory {
             throw new IllegalArgumentException("amount of storerooms must be bigger than 0");
         }
     }
+
+    /**********************************************************
+     * Getters and Setters
+     **********************************************************/
 
     /**
      * Gets the list of ingredient containers currently in the Laboratory
@@ -153,6 +180,43 @@ public class Laboratory {
         }
         return ingredientString;
     }
+
+    /**
+     * Retrieves the list of containers in the laboratory.
+     *
+     * @return The list of containers.
+     */
+    @Basic
+    public ArrayList<IngredientContainer> getLabContainers() {
+        return containers;
+    }
+
+    /**
+     * Retrieves the current number of storerooms.
+     * This method returns the current number of storerooms in the laboratory.
+     *
+     * @return the current number of storerooms
+     */
+    @Basic
+    public int getStoreroom(){
+        return storeroom;
+    }
+
+    /**
+     * Retrieves the list of devices.
+     * This method returns the list of devices currently stored. The returned list is an ArrayList of Device objects.
+     *
+     * @return an ArrayList of Device objects representing the devices currently stored
+     */
+    @Basic
+    public ArrayList<Device> getDevices() {
+        return devices;
+    }
+
+
+    /**********************************************************
+     * Methods
+     **********************************************************/
 
     /**
      * Checks if a given IngredientContainer can be added to the laboratory.
@@ -348,15 +412,6 @@ public class Laboratory {
         }
     }
 
-    /**
-     * Retrieves the list of containers in the laboratory.
-     *
-     * @return The list of containers.
-     */
-    @Basic
-    public ArrayList<IngredientContainer> getLabContainers() {
-        return containers;
-    }
 
     /**
      * Increases the number of storerooms in the laboratory by a specified amount.
@@ -412,27 +467,6 @@ public class Laboratory {
         return containers.isEmpty();
     }
 
-    /**
-     * Retrieves the current number of storerooms.
-     * This method returns the current number of storerooms in the laboratory.
-     *
-     * @return the current number of storerooms
-     */
-    @Basic
-    public int getStoreroom(){
-        return storeroom;
-    }
-
-    /**
-     * Retrieves the list of devices.
-     * This method returns the list of devices currently stored. The returned list is an ArrayList of Device objects.
-     *
-     * @return an ArrayList of Device objects representing the devices currently stored
-     */
-    @Basic
-    public ArrayList<Device> getDevices() {
-        return devices;
-    }
 
     /**
      * Adds a device to the laboratory.
@@ -626,7 +660,7 @@ public class Laboratory {
                             throw new RuntimeException(e);
                         }
                     }
-                    else{
+                    else if(currentIngredient.getState().isLiquid()) {
                         try {
                             coolingBox.addIngredient(new IngredientContainer(currentIngredient,currentIngredient.getQuantity().getSmallestFluidContainer()));
                         } catch (Device.DeviceFullException e) {

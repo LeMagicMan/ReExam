@@ -1,6 +1,5 @@
 package com.alchemy.IngredientConditions;
 
-import be.kuleuven.cs.som.annotate.Basic;
 import be.kuleuven.cs.som.annotate.Raw;
 import com.alchemy.IngredientContainer;
 
@@ -91,19 +90,6 @@ public class CoolingBox extends TemperatureChangers {
         }
 
     }
-
-
-    /**
-     * method to start the reaction
-     * @pre device must be in laboratory
-     * @pre ingredient cannot be null
-     * @effect the temperature of the content in the cooling box will be cooled to the temperature of the cooling box
-     * if the ingredient is colder than the temperature of the cooling box, nothing happens.
-     *  |if(!ingredientTemperature.isColderThan(temperature){
-     *  |ingredientTemperature = temperature
-     *  |}
-     */
-
 
     /**
      * method to cool cooling boxes own temperature by 10 degrees

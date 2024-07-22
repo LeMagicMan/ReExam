@@ -37,6 +37,8 @@ public class LaboratoryTest {
     }
     @Test
     public void testLaboratory(){
+        Laboratory newLab = new Laboratory();
+        assertEquals(newLab.getStoreroom(), 1);
         assertEquals(1, testLab.getStoreroom());
         assertTrue(testLab.isEmpty());
     }

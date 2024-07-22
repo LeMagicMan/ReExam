@@ -82,6 +82,11 @@ public class IngredientState {
     @Basic
     public boolean isSolid(){return state.isSolid();}
 
+    /**
+     * method to check if the ingredient is solid
+     * @return whether the ingredient is solid
+     */
+    @Basic
     public boolean isLiquid(){return state.isLiquid();}
     //TODO
 

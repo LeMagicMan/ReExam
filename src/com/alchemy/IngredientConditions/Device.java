@@ -89,8 +89,8 @@ public abstract class Device {
     }
 
     /** //TODO
-     *
-     * @throws NotInLaboratoryException
+     * a function to start the reaction in the device
+     * @throws NotInLaboratoryException when device is not in a laboratory
      */
     public abstract void react() throws NotInLaboratoryException;
 

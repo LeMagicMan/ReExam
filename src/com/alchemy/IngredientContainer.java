@@ -65,7 +65,7 @@ public class IngredientContainer {
         }
         this.content = content;
         this.containerUnit = containerUnit;
-        if (!this.fits(content)) {
+        if (this.fitsNot(content)) {
             destroy();
             throw new IllegalArgumentException("The ingredient doesnt fit");
         }
@@ -87,26 +87,9 @@ public class IngredientContainer {
         this(null, containerUnit);
     }
 
-
     /**********************************************************
-     * Methods
+     * Getters and Setters
      **********************************************************/
-
-    /**
-     * Checks if the specified alchemic ingredient fits in this IngredientContainer.
-     *
-     * @param ingredient the alchemic ingredient to check
-     *                   | ingredient != null
-     * @pre The ingredient to check should have the same unit type as the container unit.
-     * @return true if the quantity of the ingredient is smaller than or equal to the size of the container unit
-     *         | result == ingredient.getQuantity().isSmallerThanOrEqualTo(this.containerUnit)
-     */
-    public boolean fits(AlchemicIngredient ingredient) {
-        if (ingredient == null) {
-            return true;
-        }
-        return(ingredient.getQuantity().isSmallerThanOrEqualTo(this.containerUnit, 1)&&((containerUnit.getClass() == PowderUnit.class))==ingredient.getQuantity().isPowderUnit());
-    }
 
     /**
      * Returns the unit of this IngredientContainer.
@@ -138,11 +121,32 @@ public class IngredientContainer {
      *   | this.content = content
      */
     public void setContent(AlchemicIngredient content) {
-        if (content != null && !this.fits(content)) {
-                throw new IllegalArgumentException("The ingredient does not fit in the container.");
+        if (content != null && this.fitsNot(content)) {
+            throw new IllegalArgumentException("The ingredient does not fit in the container.");
         }
         this.content = content;
     }
+
+    /**********************************************************
+     * Methods
+     **********************************************************/
+
+    /**
+     * Checks if the specified alchemic ingredient doesn't fits in this IngredientContainer.
+     *
+     * @param ingredient the alchemic ingredient to check
+     *                   | ingredient != null
+     * @pre The ingredient to check should have the same unit type as the container unit.
+     * @return true if the quantity of the ingredient is bigger than the size of the container unit
+     *         | result == (!ingredient.getQuantity().isSmallerThanOrEqualTo(this.containerUnit))
+     */
+    public boolean fitsNot(AlchemicIngredient ingredient) {
+        if (ingredient == null) {
+            return false;
+        }
+        return (!ingredient.getQuantity().isSmallerThanOrEqualTo(this.containerUnit, 1) || ((containerUnit.getClass() == PowderUnit.class)) != ingredient.getQuantity().isPowderUnit());
+    }
+
 
     /**
      * Returns a string representation of this IngredientContainer.

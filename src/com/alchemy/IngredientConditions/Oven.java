@@ -2,7 +2,6 @@ package com.alchemy.IngredientConditions;
 import be.kuleuven.cs.som.annotate.Raw;
 import com.alchemy.IngredientContainer;
 
-import java.util.Random;
 
 /**********************************************************
  * A class representing an Oven, used to heat up an ingredient

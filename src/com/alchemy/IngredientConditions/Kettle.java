@@ -4,7 +4,6 @@ import com.alchemy.*;
 import com.alchemy.quantity.FluidUnit;
 import com.alchemy.quantity.PowderUnit;
 import com.alchemy.quantity.Quantity;
-import com.alchemy.quantity.Unit;
 
 import java.util.ArrayList;
 
@@ -112,6 +111,7 @@ public class Kettle extends Device {
      * method to start the reaction
      * @pre device must be in laboratory
      * @effect the contents will be changed to a new ingredient with the details specified in newName(), newState(), newQuantity(), newTemp() and newStandardTemp()
+     * @throws NotInLaboratoryException when device is not in a laboratory
      */
     @Override
     public void react() throws NotInLaboratoryException{

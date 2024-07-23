@@ -56,14 +56,12 @@ public class Temperature {
             this.hotness = hotness;
             this.coldness = coldness;
         }
-        //TODO: peer review
-//        if(hotness > temperatureLimit){
-//            hotness = temperatureLimit;
-//        }
-//        else if(coldness > temperatureLimit){
-//            coldness = temperatureLimit;
-//        }
-
+        if(hotness > temperatureLimit){
+            hotness = temperatureLimit;
+        }
+        else if(coldness > temperatureLimit){
+            coldness = temperatureLimit;
+        }
     }
 
     /**

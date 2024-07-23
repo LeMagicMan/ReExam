@@ -23,10 +23,10 @@ public enum FluidUnit implements Unit {
      */
     DROP("drop"),
     SPOON("spoon", 8F, DROP),
-    VIAL("sachet", 5F, SPOON),
-    BOTTLE("box", 3F, VIAL),
-    JUG("sack", 7F, BOTTLE),
-    BARREL("chest", 12F, JUG),
+    VIAL("vial", 5F, SPOON),
+    BOTTLE("bottle", 3F, VIAL),
+    JUG("jug", 7F, BOTTLE),
+    BARREL("barrel", 12F, JUG),
     STOREROOM("storeroom", 5F, BARREL);
 
 

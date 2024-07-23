@@ -1,3 +1,9 @@
+import com.alchemy.AlchemicIngredient;
+import com.alchemy.IngredientConditions.IngredientState;
+import com.alchemy.IngredientConditions.Temperature;
+import com.alchemy.IngredientContainer;
+import com.alchemy.IngredientName;
+import com.alchemy.Laboratory;
 import com.alchemy.quantity.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,5 +72,23 @@ public class UnitTest {
          assertFalse(largeTestPowder.isSmallerThanOrEqualTo(mediumTestPowder));
         assertThrows(Exception.class, () -> mediumTestFluid.convertTo(PowderUnit.CHEST));
         assertThrows(Exception.class, () -> mediumTestPowder.convertTo(FluidUnit.DROP));
+    }
+    @Test
+    public void testGetSmallestContainer(){
+        IngredientState statePowder = new IngredientState(IngredientState.State.Powder);
+        IngredientState stateFluid = new IngredientState(IngredientState.State.Liquid);
+        Temperature temp = new Temperature(0,20);
+        AlchemicIngredient ingredient1;
+        AlchemicIngredient ingredient2;
+        try {
+            ingredient1 = new AlchemicIngredient("Test Ingredient", temp, statePowder,10);
+            ingredient2 = new AlchemicIngredient("Test Ingredient", temp,  stateFluid, 10);
+        } catch (IngredientName.IllegalNameException e) {
+            throw new RuntimeException(e);
+        }
+        IngredientContainer container1 = new IngredientContainer(ingredient1, ingredient1.getQuantity().getSmallestPowderContainer());
+        IngredientContainer container2 = new IngredientContainer(ingredient2, ingredient2.getQuantity().getSmallestFluidContainer());
+        assertEquals(container1.getContainerUnit(), SACHET);
+        assertEquals(container2.getContainerUnit(), VIAL);
     }
 }

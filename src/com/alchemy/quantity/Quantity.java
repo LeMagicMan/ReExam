@@ -189,7 +189,7 @@ public class Quantity {
      *
      * @return the smallest container unit for this quantity
      * @pre The unit of this quantity is a fluid unit.
-     */
+     */ //TODO: make smallestcontaineramount return correct amount
     public Unit getSmallestFluidContainer() {
         Unit smallestContainerUnit = null;
         Float smallestContainerAmount = Float.MAX_VALUE;
@@ -206,7 +206,7 @@ public class Quantity {
     /**
      * a function to get the smallest container that fits
      * @param smallestContainerUnit the smallest container unit for this quantity
-     * @param smallestContainerAmount the smallest amount of fluid needed for this container //TODO: explain better
+     * @param smallestContainerAmount the smallest amount of fluid needed for this container
      * @param other the units of this quantity
      * @return  @return the smallest container unit for this quantity
      */

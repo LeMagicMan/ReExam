@@ -1,7 +1,6 @@
 package com.alchemy.quantity;
 
 import be.kuleuven.cs.som.annotate.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,8 +38,9 @@ public enum FluidUnit implements Unit {
      * The name of the unit in human-readable format.
      */
     private final String name;
+
     /**
-     * The conversion map of the unit to other untis of the same type.
+     * The conversion map of the unit to other units of the same type.
      */
     final Map<Unit, Float> conversionMap = new HashMap<>();
 
@@ -52,7 +52,7 @@ public enum FluidUnit implements Unit {
     /**
      * Initializes a new FluidUnit with the specified name.
      *
-     * @param name The name of the unit
+     * @param name The name of a fluidUnit
      */
     @Raw
     FluidUnit(String name) {
@@ -72,7 +72,6 @@ public enum FluidUnit implements Unit {
         this(name);
         this.conversionMap.put(unit, amount);
     }
-
     static {
         Unit.calculateConversionMaps(values());
     }
@@ -83,9 +82,9 @@ public enum FluidUnit implements Unit {
      **********************************************************/
 
     /**
-     * Returns the base unit of FluidUnit.
+     * Returns the base unit of a fluidUnit.
      *
-     * @return The base unit
+     * @return The base fluidUnit
      */
     @Override @Basic
     public FluidUnit getBaseUnit() {
@@ -93,9 +92,9 @@ public enum FluidUnit implements Unit {
     }
 
     /**
-     * Returns the name of the unit.
+     * Returns the name of a fluidUnit.
      *
-     * @return The name of the unit
+     * @return The name of a fluidUnit
      */
     @Override @Basic
     public String getName() {
@@ -103,9 +102,9 @@ public enum FluidUnit implements Unit {
     }
 
     /**
-     * Returns the conversion map of the unit.
+     * Returns the conversion map of a fluidUnit.
      *
-     * @return The conversion map of the unit
+     * @return The conversion map of a fluidUnit
      */
     @Override @Basic
     public Map<Unit, Float> getConversionMap() {
@@ -115,7 +114,7 @@ public enum FluidUnit implements Unit {
     /**
      * Adds a conversion rate to the conversion map.
      *
-     * @param unit The unit to convert to
+     * @param unit The fluidUnit to convert to
      * @param amount The conversion rate
      */
     @Override @Raw

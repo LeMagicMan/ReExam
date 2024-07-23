@@ -116,7 +116,7 @@ public class Kettle extends Device {
     @Override
     public void react() throws NotInLaboratoryException{
         IngredientType newIngredientType;
-        if(!isInLaboratory()){
+        if(isNotInLaboratory()){
             throw new NotInLaboratoryException("Kettle not in Laboratory");
         }
         else{
@@ -290,7 +290,7 @@ public class Kettle extends Device {
     }
 
     /**
-     * function used to get the new standard Temperature of the mixture, which is the standardtemperature of the ingredient closest to [0,20], in case of equal closeness the hottest temperature wins
+     * function used to get the new standard Temperature of the mixture, which is the standard temperature of the ingredient closest to [0,20], in case of equal closeness the hottest temperature wins
      * @return the new standard temperature of the mixture
      */
     private Temperature newStandardTemp(){

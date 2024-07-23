@@ -105,8 +105,8 @@ public abstract class Device {
      *  |laboratory != null
      */
     @Basic
-    public boolean isInLaboratory() {
-        return laboratory!=null;
+    public boolean isNotInLaboratory() {
+        return laboratory == null;
     }
 
 

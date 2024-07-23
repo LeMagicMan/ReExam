@@ -42,9 +42,9 @@ public class IngredientName {
      **********************************************************/
 
     /**
-     * The words that are not allowed in the name. (eg pre- and suffixes)
+     * The words that are not allowed in the name. (e.g. pre- and suffixes)
      */
-    private String[] blacklistedWords = {};
+    private String[] blacklistedWords;
 
     /**
      * The names of the parts of the ingredient.
@@ -76,7 +76,7 @@ public class IngredientName {
      *
      * @param name The name of the ingredient.
      * @param specialName The special name of the ingredient.
-     * @param blacklistedWords The words that are not allowed in the name. (eg pre- and suffixes)
+     * @param blacklistedWords The words that are not allowed in the name. (e.g. pre- and suffixes)
      * @throws IllegalNameException If the given name is not a valid name.
      * @throws IllegalSpecialNameException If the given special name is not a valid special name.
      */
@@ -332,7 +332,7 @@ public class IngredientName {
      * A valid ingredient part name must match the ingredient part regex and must not be empty.
      * Each word must start with a capital letter and be at least 2 characters long.
      * All other characters must be lowercase.
-     * The name must not contain any blacklisted words. (eg. "mixed" or "with")
+     * The name must not contain any blacklisted words. (e.g. "mixed" or "with")
      *
      * @param name The ingredient part name to be checked.
      * @return True if the ingredient part name is valid, false otherwise.

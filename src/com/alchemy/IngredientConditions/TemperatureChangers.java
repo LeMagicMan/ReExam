@@ -1,5 +1,7 @@
 package com.alchemy.IngredientConditions;
 
+import be.kuleuven.cs.som.annotate.Raw;
+
 import java.util.Random;
 
 /**********************************************************
@@ -40,6 +42,7 @@ public abstract class TemperatureChangers extends Device {
      * @param deviation the amount of deviation the device has
      * @param isCooler boolean true if the device cools false if it doesn't
      */
+    @Raw
     public TemperatureChangers (Temperature temperature, int deviation, boolean isCooler){
         this.deviation = deviation;
         this.temperature = temperature;
@@ -57,10 +60,9 @@ public abstract class TemperatureChangers extends Device {
      */
     @Override
     public void react() throws NotInLaboratoryException{
-        if(!isInLaboratory()){
+        if(isNotInLaboratory()){
             throw new NotInLaboratoryException("Oven not in Laboratory");
         }
-
         if (ingredient != null){
             Temperature ingredientTemperature= ingredient.getTemperature();
             Float ingredientHotness = ingredientTemperature.getHotness();

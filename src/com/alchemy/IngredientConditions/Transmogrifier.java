@@ -29,7 +29,7 @@ public class Transmogrifier extends Device {
      * Methods
      **********************************************************/
 
-    //TODO
+
     /**
      * method to start the reaction
      * @pre device must be in laboratory
@@ -37,7 +37,7 @@ public class Transmogrifier extends Device {
      */
     @Override
     public void react() throws NotInLaboratoryException {
-        if(!isInLaboratory()){
+        if(isNotInLaboratory()){
             throw new NotInLaboratoryException("transmogrifier not in a Laboratory");
         }
     }
@@ -48,7 +48,7 @@ public class Transmogrifier extends Device {
      * @throws NotInLaboratoryException if the transmogrifier isn't in a Laboratory
      */
     public void react(IngredientState.State state) throws NotInLaboratoryException {
-        if(!isInLaboratory()){
+        if(isNotInLaboratory()){
             throw new NotInLaboratoryException("transmogrifier not in a Laboratory");
         }
         try {

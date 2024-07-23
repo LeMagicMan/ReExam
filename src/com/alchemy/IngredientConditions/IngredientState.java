@@ -32,7 +32,7 @@ public class IngredientState {
 
     /**
      * constructor to make a state
-     * @param state whether the state is solid
+     * @param state the state of the ingredient
      */
     @Raw
     public IngredientState(State state){
@@ -47,17 +47,40 @@ public class IngredientState {
         Powder("solid"),
         Liquid("liquid");
 
-        private final String state;
-        State(String state) {
-            this.state = state;
+        /**
+         * variable referencing a states name
+         */
+        private final String stateName;
+
+        /**
+         * constructor to m ake a new state
+         * @param stateName the name of the state
+         */
+        State(String stateName) {
+            this.stateName = stateName;
         }
 
+        /**
+         * a getter for the name of a state
+         * @return the name of the state
+         */
+        @Basic
         public String getStateName(){
-            return this.state;
+            return this.stateName;
         }
+
+        /**
+         * A check to see if a state is solid
+         * @return true if state is solid false otherwise
+         */
         public boolean isSolid() {
             return this.equals(State.Powder);
         }
+
+        /**
+         * AA check to see if a state is a liquid
+         * @return true if state is a liquid false otherwise
+         */
         public boolean isLiquid() {
             return this.equals(State.Liquid);
         }
@@ -88,7 +111,7 @@ public class IngredientState {
      */
     @Basic
     public boolean isLiquid(){return state.isLiquid();}
-    //TODO
+
 
     /**********************************************************
      * Mutators
@@ -99,7 +122,7 @@ public class IngredientState {
      * @pre given switchstate must be a valid state
      * @param switchstate the new state of the ingredient
      * @effect state is changed.
-     *///TODO
+     */
     void switchState(State switchstate) throws Exception {
         IngredientState.State[] states = IngredientState.State.values();
         for (IngredientState.State state : states) {

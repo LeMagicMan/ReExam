@@ -49,6 +49,7 @@ public interface Unit {
      *
      * @return The base unit
      */
+    @Basic
     Unit getBaseUnit();
 
     /**

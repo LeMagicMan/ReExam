@@ -132,7 +132,7 @@ public class IngredientContainer {
      **********************************************************/
 
     /**
-     * Checks if the specified alchemic ingredient doesn't fits in this IngredientContainer.
+     * Checks if the specified alchemic ingredient doesn't fit in this IngredientContainer.
      *
      * @param ingredient the alchemic ingredient to check
      *                   | ingredient != null

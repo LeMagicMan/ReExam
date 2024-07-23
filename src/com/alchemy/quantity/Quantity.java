@@ -206,17 +206,15 @@ public class Quantity {
     /**
      * a function to get the smallest container that fits
      * @param smallestContainerUnit the smallest container unit for this quantity
-     * @param smallestContainerAmount //TODO
+     * @param smallestContainerAmount the smallest amount of fluid needed for this container //TODO: explain better
      * @param other the units of this quantity
      * @return  @return the smallest container unit for this quantity
      */
     public Unit getSmallestContainer(Unit smallestContainerUnit, Float smallestContainerAmount, Unit other) {
         Float converted = unit.convertTo(other, amount);
         if (smallestContainerAmount > 1 && converted < smallestContainerAmount) {
-            //smallestContainerAmount = converted; //TODO
             smallestContainerUnit = other;
         } else if (smallestContainerAmount <= 1 && converted > smallestContainerAmount && converted <= 1) {
-            //smallestContainerAmount = converted; //TODO
             smallestContainerUnit = other;
 
         }

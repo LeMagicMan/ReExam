@@ -47,7 +47,6 @@ public class Laboratory {
      * Constructors
      **********************************************************/
 
-    //TODO: test this constructor
     /**
      * Constructs a new Laboratory with the specified number of storerooms.
      * Initializes the lists of devices and alchemic containers.

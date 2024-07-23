@@ -56,12 +56,13 @@ public class Temperature {
             this.hotness = hotness;
             this.coldness = coldness;
         }
-        if(hotness > temperatureLimit){
-            hotness = temperatureLimit;
-        }
-        else if(coldness > temperatureLimit){
-            coldness = temperatureLimit;
-        }
+        //TODO: peer review
+//        if(hotness > temperatureLimit){
+//            hotness = temperatureLimit;
+//        }
+//        else if(coldness > temperatureLimit){
+//            coldness = temperatureLimit;
+//        }
 
     }
 
@@ -119,7 +120,7 @@ public class Temperature {
     void heat(Float change){
         if(change <0){
             cool(change);
-            return;
+            //return; //TODO: peer review
         }
         else{
             ArrayList<Float> newTemps = changeTemp(change,hotness,coldness);

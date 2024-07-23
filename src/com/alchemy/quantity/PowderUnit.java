@@ -41,7 +41,7 @@ public enum PowderUnit implements Unit {
     private final String name;
 
     /**
-     * The conversion map of the unit to other untis of the same type.
+     * The conversion map of the unit to other units of the same type.
      */
     final Map<Unit, Float> conversionMap = new HashMap<>();
 
@@ -53,7 +53,7 @@ public enum PowderUnit implements Unit {
     /**
      * Initializes a new PowderUnit with the specified name.
      *
-     * @param name The name of the unit
+     * @param name The name of the PowderUnit
      */
     @Raw
     PowderUnit(String name) {
@@ -85,7 +85,7 @@ public enum PowderUnit implements Unit {
     /**
      * Returns the base unit of PowderUnit.
      *
-     * @return The base unit
+     * @return The base PowderUnit
      */
     @Override @Basic
     public PowderUnit getBaseUnit() {
@@ -93,9 +93,9 @@ public enum PowderUnit implements Unit {
     }
 
     /**
-     * Returns the name of the unit.
+     * Returns the name of the PowderUnit.
      *
-     * @return The name of the unit
+     * @return The name of the PowderUnit
      */
     @Override @Basic
     public String getName() {
@@ -103,9 +103,9 @@ public enum PowderUnit implements Unit {
     }
 
     /**
-     * Returns the conversion map of the unit.
+     * Returns the conversion map of the PowderUnit.
      *
-     * @return A copy of the conversion map of the unit
+     * @return A copy of the conversion map of the PowderUnit
      */
     @Override @Basic
     public Map<Unit, Float> getConversionMap() {
@@ -115,7 +115,7 @@ public enum PowderUnit implements Unit {
     /**
      * Adds a conversion rate to the conversion map.
      *
-     * @param unit The unit to convert to
+     * @param unit The PowderUnit to convert to
      * @param amount The conversion rate
      */
     @Override @Raw

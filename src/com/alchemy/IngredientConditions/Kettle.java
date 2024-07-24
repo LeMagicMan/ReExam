@@ -106,7 +106,6 @@ public class Kettle extends Device {
      * Methods
      **********************************************************/
 
-    //TODO:
     /**
      * method to start the reaction
      * @pre device must be in laboratory

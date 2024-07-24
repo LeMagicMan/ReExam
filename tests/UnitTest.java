@@ -3,7 +3,6 @@ import com.alchemy.IngredientConditions.IngredientState;
 import com.alchemy.IngredientConditions.Temperature;
 import com.alchemy.IngredientContainer;
 import com.alchemy.IngredientName;
-import com.alchemy.Laboratory;
 import com.alchemy.quantity.*;
 import org.junit.Before;
 import org.junit.Test;

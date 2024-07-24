@@ -198,25 +198,11 @@ public class Quantity {
             if (Objects.equals(other, FluidUnit.DROP) || Objects.equals(other, FluidUnit.STOREROOM)) {
                 continue; // skip smallest and largest unit
             }
-            smallestContainerUnit = getSmallestContainer(null, smallestContainerAmount, other);
-        }
-        return smallestContainerUnit;
-    }
-
-    /**
-     * a function to get the smallest container that fits
-     * @param smallestContainerUnit the smallest container unit for this quantity
-     * @param smallestContainerAmount the smallest amount of fluid needed for this container
-     * @param other the units of this quantity
-     * @return  @return the smallest container unit for this quantity
-     */
-    public Unit getSmallestContainer(Unit smallestContainerUnit, Float smallestContainerAmount, Unit other) {
-        Float converted = unit.convertTo(other, amount);
-        if (smallestContainerAmount > 1 && converted < smallestContainerAmount) {
-            smallestContainerUnit = other;
-        } else if (smallestContainerAmount <= 1 && converted > smallestContainerAmount && converted <= 1) {
-            smallestContainerUnit = other;
-
+            smallestContainerAmount = unit.convertTo(other, amount);
+            if (1 >= smallestContainerAmount) {
+                smallestContainerUnit = other;
+                return smallestContainerUnit;
+            }
         }
         return smallestContainerUnit;
     }
@@ -231,12 +217,16 @@ public class Quantity {
         Unit smallestContainerUnit = null;
         Float smallestContainerAmount = Float.MAX_VALUE;
 
-            for (Unit other : PowderUnit.values()) {
-                if (Objects.equals(other, PowderUnit.PINCH) || Objects.equals(other, PowderUnit.STOREROOM)) {
-                    continue; // skip smallest and largest unit
-                }
-                smallestContainerUnit = getSmallestContainer(null, smallestContainerAmount, other);
+        for (Unit other : PowderUnit.values()) {
+            if (Objects.equals(other, PowderUnit.PINCH) || Objects.equals(other, PowderUnit.STOREROOM)) {
+                continue; // skip smallest and largest unit
             }
+            smallestContainerAmount = unit.convertTo(other, amount);
+            if (1 >= smallestContainerAmount) {
+                smallestContainerUnit = other;
+                return smallestContainerUnit;
+            }
+        }
         return smallestContainerUnit;
     }
 

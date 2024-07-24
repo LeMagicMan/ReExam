@@ -189,10 +189,10 @@ public class Quantity {
      *
      * @return the smallest container unit for this quantity
      * @pre The unit of this quantity is a fluid unit.
-     */ //TODO: make smallestcontaineramount return correct amount
+     */
     public Unit getSmallestFluidContainer() {
         Unit smallestContainerUnit = null;
-        Float smallestContainerAmount = Float.MAX_VALUE;
+        Float smallestContainerAmount;
 
         for (Unit other : FluidUnit.values()) {
             if (Objects.equals(other, FluidUnit.DROP) || Objects.equals(other, FluidUnit.STOREROOM)) {
@@ -215,7 +215,7 @@ public class Quantity {
      */
     public Unit getSmallestPowderContainer() {
         Unit smallestContainerUnit = null;
-        Float smallestContainerAmount = Float.MAX_VALUE;
+        Float smallestContainerAmount;
 
         for (Unit other : PowderUnit.values()) {
             if (Objects.equals(other, PowderUnit.PINCH) || Objects.equals(other, PowderUnit.STOREROOM)) {

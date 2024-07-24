@@ -88,7 +88,7 @@ public abstract class Device {
         container.destroy();
     }
 
-    /** //TODO
+    /**
      * a function to start the reaction in the device
      * @throws NotInLaboratoryException when device is not in a laboratory
      */

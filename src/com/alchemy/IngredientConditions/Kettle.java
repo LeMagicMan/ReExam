@@ -55,7 +55,9 @@ public class Kettle extends Device {
     /**********************************************************
      * Constructors
      **********************************************************/
-    //TODO
+    /**
+     * constructor to make a Kettle Device
+     */
     @Raw
     public Kettle() {
         super();

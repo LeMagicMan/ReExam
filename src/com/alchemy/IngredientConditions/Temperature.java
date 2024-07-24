@@ -118,7 +118,6 @@ public class Temperature {
     void heat(Float change){
         if(change <0){
             cool(change);
-            //return; //TODO: peer review
         }
         else{
             ArrayList<Float> newTemps = changeTemp(change,hotness,coldness);

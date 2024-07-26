@@ -179,8 +179,10 @@ public class Quantity {
     public Unit getSmallestContainer() {
         if (isFluidUnit()) {
             return getSmallestFluidContainer();
-        } else {
+        } else if (isPowderUnit()) {
             return getSmallestPowderContainer();
+        } else {
+            return null;
         }
     }
 

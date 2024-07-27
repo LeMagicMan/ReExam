@@ -206,7 +206,11 @@ public class Quantity {
                 return smallestContainerUnit;
             }
         }
-        return smallestContainerUnit;
+        try {
+            throw new TooMuchIngredientException("Too much ingredient");
+        } catch (TooMuchIngredientException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -229,7 +233,11 @@ public class Quantity {
                 return smallestContainerUnit;
             }
         }
-        return smallestContainerUnit;
+        try {
+            throw new TooMuchIngredientException("Too much ingredient");
+        } catch (TooMuchIngredientException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -374,5 +382,12 @@ public class Quantity {
     @Basic
     public String toString() {
         return amount + " " + unit.getName();
+    }
+
+    /**
+     * A exception for when there's more ingredient than the biggest allowed container
+     */
+    public static class TooMuchIngredientException extends Exception {
+        public TooMuchIngredientException(String e){super(e);}
     }
 }

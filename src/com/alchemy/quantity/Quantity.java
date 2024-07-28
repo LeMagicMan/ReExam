@@ -385,7 +385,7 @@ public class Quantity {
     }
 
     /**
-     * A exception for when there's more ingredient than the biggest allowed container
+     * An exception for when there's more ingredient than the biggest allowed container
      */
     public static class TooMuchIngredientException extends Exception {
         public TooMuchIngredientException(String e){super(e);}

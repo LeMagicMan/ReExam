@@ -19,13 +19,32 @@ public abstract class TemperatureChangers extends Device {
      **********************************************************/
 
     /**
+     * variable that defines the type of TemperatureChanger
+     */
+    private final TemperatureChangerType type;
+    /**
      * variable to keep track of the amount the temperature in the device can deviate
      */
     private final int deviation;
+
+
     /**
-     * variable to keep track if a device cools(true) ingredients or heats(false)
+     * enum to keep track if a device cools ingredients or heats
      */
-    private final boolean isCooler;
+    public enum TemperatureChangerType {
+        Heater("Heater"),
+        Cooler("cooler");
+
+        private final String typeName;
+
+        TemperatureChangerType(String typeName) {
+            this.typeName = typeName;
+        }
+
+        public String getTypeName() {
+            return typeName;
+        }
+    }
 
     /**
      * variable to keep track of the temperature in the device
@@ -40,13 +59,12 @@ public abstract class TemperatureChangers extends Device {
      * constructor to make a device be able to change temperature
      * @param temperature the temperature in the device
      * @param deviation the amount of deviation the device has
-     * @param isCooler boolean true if the device cools false if it doesn't
      */
     @Raw
-    public TemperatureChangers (Temperature temperature, int deviation, boolean isCooler){
+    public TemperatureChangers (Temperature temperature, int deviation, TemperatureChangerType type){
         this.deviation = deviation;
         this.temperature = temperature;
-        this.isCooler = isCooler;
+        this.type = type;
     }
 
     /**********************************************************
@@ -61,7 +79,7 @@ public abstract class TemperatureChangers extends Device {
      */
     public void setTemperature(Float coldness,Float hotness) {
         temperature.heat(temperature.getColdness());
-        temperature.cool(temperature.getHotness());//temperature is set to 0,0
+        temperature.cool(temperature.getHotness());
         temperature.cool(coldness);
         temperature.heat(hotness);
     }
@@ -71,8 +89,8 @@ public abstract class TemperatureChangers extends Device {
      * @param temperature the temperature the device will be set to
      */
     public void setTemperature(Temperature temperature) {
-        Float coldness = temperature.getColdness();
-        Float hotness = temperature.getHotness();
+        float coldness = temperature.getColdness();
+        float hotness = temperature.getHotness();
         this.temperature.heat(this.temperature.getColdness());
         this.temperature.cool(this.temperature.getHotness());
         this.temperature.cool(coldness);
@@ -111,11 +129,17 @@ public abstract class TemperatureChangers extends Device {
             Random rand = new Random();
             int randomDeviation = rand.nextInt((2 * deviation) + 1) - deviation;
 
-            if (isCooler && !ingredientTemperature.isColderThan(temperature)){
-                ingredientTemperature.cool(ingredientHotness-hotness+coldness-ingredientColdness + randomDeviation);
-
-            } else if ( !isCooler && !(ingredientHotness > hotness | ingredientColdness< coldness | (ingredientHotness.equals(hotness) && ingredientColdness.equals(coldness))) ){
-                ingredientTemperature.heat(ingredientColdness - coldness + hotness - ingredientHotness + randomDeviation);
+            switch (this.type){
+                case Cooler:
+                    if(!ingredientTemperature.isColderThan(temperature)) {
+                        ingredientTemperature.cool(ingredientHotness - hotness + coldness - ingredientColdness + randomDeviation);
+                    }
+                    break;
+                case Heater:
+                    if(!ingredientTemperature.isHotterThan(temperature)) {
+                        ingredientTemperature.heat(ingredientColdness - coldness + hotness - ingredientHotness + randomDeviation);
+                    }
+                    break;
             }
         }
     }

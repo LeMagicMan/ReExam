@@ -3,6 +3,8 @@ package com.alchemy.IngredientConditions;
 import be.kuleuven.cs.som.annotate.Raw;
 import com.alchemy.IngredientContainer;
 
+import static com.alchemy.IngredientConditions.TemperatureChangers.TemperatureChangerType.Cooler;
+
 /**********************************************************
  * A class representing a coolingbox, used to cool an ingredient
  * defensively programmed
@@ -25,7 +27,7 @@ public class CoolingBox extends TemperatureChangers {
      */
     @Raw
     public CoolingBox(Float coldness, Float hotness) {
-        super(new Temperature(0F,0F),0, true);
+        super(new Temperature(0F,0F),0, Cooler);
         setTemperature(coldness, hotness);
     }
 
@@ -34,7 +36,7 @@ public class CoolingBox extends TemperatureChangers {
      */
     @Raw
     public CoolingBox() {
-        super(new Temperature(0F,20F),0, true);
+        super(new Temperature(0F,20F),0, Cooler);
     }
 
 

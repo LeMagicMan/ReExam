@@ -54,6 +54,7 @@ public class AlchemicIngredientTest {
         } catch (IngredientName.IllegalNameException e) {
             fail("Valid name should not throw an exception: " + e.getMessage());
         }
+        assertThrows(IngredientName.IllegalNameException.class, () -> new IngredientName("Ba", "Ba", new String[0]));
     }
 
     @Test

@@ -2,6 +2,8 @@ package com.alchemy.IngredientConditions;
 import be.kuleuven.cs.som.annotate.Raw;
 import com.alchemy.IngredientContainer;
 
+import static com.alchemy.IngredientConditions.TemperatureChangers.TemperatureChangerType.Heater;
+
 
 /**********************************************************
  * A class representing an Oven, used to heat up an ingredient
@@ -25,7 +27,7 @@ public class Oven extends TemperatureChangers {
      */
     @Raw
     public Oven(Float coldness, Float hotness){
-        super(new Temperature(0F,0F),5, false);
+        super(new Temperature(0F,0F),5, Heater);
         setTemperature(coldness,hotness);
     }
 
@@ -34,7 +36,7 @@ public class Oven extends TemperatureChangers {
      */
     @Raw
     public Oven(){
-        super(new Temperature(0F,20F),5, false);
+        super(new Temperature(0F,20F),5, Heater);
     }
 
 

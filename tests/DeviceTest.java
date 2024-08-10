@@ -142,6 +142,7 @@ public class DeviceTest {
 
     @Test
     public void TransmorgrifierTest() throws Exception{
+       assertThrows(Device.NotInLaboratoryException.class, ()-> kettle.react());
        lab.addDevice(transmogrifier);
        Assert.assertFalse(container1.getContent().getState().isSolid());
        //test basic function
@@ -151,8 +152,8 @@ public class DeviceTest {
        Assert.assertTrue(changedContainer.getContent().getState().isSolid());
        transmogrifier.addIngredient(changedContainer);
        transmogrifier.react(IngredientState.State.Liquid);
-        IngredientContainer changedContainer2 = transmogrifier.getContents();
-        Assert.assertFalse(changedContainer2.getContent().getState().isSolid());
+       IngredientContainer changedContainer2 = transmogrifier.getContents();
+       Assert.assertFalse(changedContainer2.getContent().getState().isSolid());
     }
 
     @Test

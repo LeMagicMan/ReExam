@@ -35,7 +35,11 @@ public class Transmogrifier extends Device {
      * @pre device must be in laboratory
      */
     @Override
-    public void react() {}
+    public void react() throws NotInLaboratoryException {
+        if(isNotInLaboratory()){
+            throw new NotInLaboratoryException("transmogrifier not in a Laboratory");
+        }
+    }
 
     /**
      * method to start the reaction

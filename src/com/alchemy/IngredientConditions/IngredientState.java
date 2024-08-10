@@ -131,7 +131,6 @@ public class IngredientState {
                 return;
             }
         }
-        throw new Exception("Invalid state: " + switchstate);
     }
 }
 

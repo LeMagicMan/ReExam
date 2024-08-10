@@ -50,6 +50,44 @@ public abstract class TemperatureChangers extends Device {
     }
 
     /**********************************************************
+     * Getters and Setters
+     **********************************************************/
+
+    /**
+     * method to set the temperature of a device
+     * @pre either hotness or coldness is 0
+     * @param coldness the coldness the device will be set to
+     * @param hotness the hotness the device will be set to
+     */
+    public void setTemperature(Float coldness,Float hotness) {
+        temperature.heat(temperature.getColdness());
+        temperature.cool(temperature.getHotness());//temperature is set to 0,0
+        temperature.cool(coldness);
+        temperature.heat(hotness);
+    }
+
+    /**
+     * method to set the temperature of the device
+     * @param temperature the temperature the device will be set to
+     */
+    public void setTemperature(Temperature temperature) {
+        Float coldness = temperature.getColdness();
+        Float hotness = temperature.getHotness();
+        this.temperature.heat(this.temperature.getColdness());
+        this.temperature.cool(this.temperature.getHotness());
+        this.temperature.cool(coldness);
+        this.temperature.heat(hotness);
+    }
+
+    /**
+     * a getter for the temperature of a device
+     * @return the Temperature of the device
+     */
+    public Temperature getTemperature() {
+        return this.temperature;
+    }
+
+    /**********************************************************
      * Methods
      **********************************************************/
 

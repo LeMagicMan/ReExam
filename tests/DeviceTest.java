@@ -18,7 +18,10 @@ public class DeviceTest {
     IngredientContainer container1;
     IngredientContainer container2;
     Quantity basicQuantity = new Quantity(1, FluidUnit.SPOON);
-
+    CoolingBox fridge;
+    Oven oven;
+    Transmogrifier transmogrifier;
+    Kettle kettle;
 
     @Before
     public void setUpFixture() {
@@ -28,14 +31,53 @@ public class DeviceTest {
         container2 = new IngredientContainer(ingredient2,basicQuantity.getUnit());
         lab = new Laboratory(10000);
         lab2 = new Laboratory(10000);
+        fridge = new CoolingBox();
+        oven = new Oven();
+        transmogrifier = new Transmogrifier();
+        kettle = new Kettle();
+    }
+
+    @Test
+    public void testSetTemperature() {
+        fridge.setTemperature(20F,0F);
+        assertEquals(fridge.getTemperature().getColdness(), new Temperature(20F, 0F).getColdness());
+        assertEquals(fridge.getTemperature().getHotness(), new Temperature(20F, 0F).getHotness());
+        fridge.lowerOwnTemp();
+        assertEquals(fridge.getTemperature().getColdness(), new Temperature(30F, 0F).getColdness());
+        assertEquals(fridge.getTemperature().getHotness(), new Temperature(30F, 0F).getHotness());
+        fridge.setTemperature(0F, -10F);
+        assertEquals(fridge.getTemperature().getColdness(), new Temperature(10F, 0F).getColdness());
+        assertEquals(fridge.getTemperature().getHotness(), new Temperature(10F, 0F).getHotness());
+        fridge.setTemperature(20F, -10F);
+        assertEquals(fridge.getTemperature().getColdness(), new Temperature(30F, 0F).getColdness());
+        assertEquals(fridge.getTemperature().getHotness(), new Temperature(30F, 0F).getHotness());
+        fridge.setTemperature(new Temperature(50F, 0F));
+        assertEquals(fridge.getTemperature().getColdness(), new Temperature(50F, 0F).getColdness());
+        assertEquals(fridge.getTemperature().getHotness(), new Temperature(50F, 0F).getHotness());
+        oven.setTemperature(0F,40F);
+        assertEquals(oven.getTemperature().getColdness(), new Temperature(0F, 40F).getColdness());
+        assertEquals(oven.getTemperature().getHotness(), new Temperature(0F, 40F).getHotness());
+        oven.heatOwnTemperature();
+        assertEquals(oven.getTemperature().getColdness(), new Temperature(0F, 50F).getColdness());
+        assertEquals(oven.getTemperature().getHotness(), new Temperature(0F, 50F).getHotness());
+        oven.setTemperature(-10F, 0F);
+        assertEquals(oven.getTemperature().getColdness(), new Temperature(0F, 10F).getColdness());
+        assertEquals(oven.getTemperature().getHotness(), new Temperature(0F, 10F).getHotness());
+        oven.setTemperature(-10F, 20F);
+        assertEquals(oven.getTemperature().getColdness(), new Temperature(0F, 30F).getColdness());
+        assertEquals(oven.getTemperature().getHotness(), new Temperature(0F, 30F).getHotness());
+        oven.setTemperature(new Temperature(0F, 50F));
+        assertEquals(oven.getTemperature().getColdness(), new Temperature(0F, 50F).getColdness());
+        assertEquals(oven.getTemperature().getHotness(), new Temperature(0F, 50F).getHotness());
     }
 
     @Test
     public void CoolingBoxTest() throws Exception {
         //adding Ingredients test
-        CoolingBox fridge = new CoolingBox();
-        CoolingBox fridge2 = new CoolingBox(40F, 0F);
-        fridge.setTemperature(20F,0F);
+        CoolingBox fridge2 = new CoolingBox(20F, 0F);
+        fridge.setTemperature(20F, 0F);
+        assertEquals(fridge2.getTemperature().getColdness(), new Temperature(20F, 0F).getColdness());
+        assertEquals(fridge2.getTemperature().getHotness(), new Temperature(20F, 0F).getHotness());
         lab.addDevice(fridge);
         lab2.addDevice(fridge2);
         //test DeviceFullException
@@ -48,6 +90,7 @@ public class DeviceTest {
         IngredientContainer cooledContainer = fridge.getContents();
         Assert.assertEquals(20F,cooledContainer.getContent().getTemperature().getColdness(), 1);
         Assert.assertEquals(0F, cooledContainer.getContent().getTemperature().getHotness(), 1);
+        fridge2.setTemperature(40F, 0F);
         fridge2.addIngredient(cooledContainer);
         fridge2.react();
         IngredientContainer cooledContainer2 = fridge2.getContents();
@@ -59,15 +102,17 @@ public class DeviceTest {
         IngredientContainer cooledContainer3 = fridge.getContents();
         Assert.assertEquals(40F, cooledContainer3.getContent().getTemperature().getColdness(), 1);
         Assert.assertEquals(0F, cooledContainer3.getContent().getTemperature().getHotness(), 1);
+
     }
 
     @Test
     public void OvenTest() throws Exception{
         //Test is run 20 times to take into account the randomness
         //adding Ingredients test
-        Oven oven = new Oven();
-        Oven oven2 = new Oven(0F, 60F);
-        oven.setTemperature(0F,40F);
+        Oven oven2 = new Oven(0F, 40F);
+        assertEquals(oven2.getTemperature().getColdness(), new Temperature(0F, 40F).getColdness());
+        assertEquals(oven2.getTemperature().getHotness(), new Temperature(0F, 40F).getHotness());
+        oven.setTemperature(0F, 40F);
         lab.addDevice(oven);
         lab2.addDevice(oven2);
         //test DeviceFullException
@@ -80,6 +125,7 @@ public class DeviceTest {
         IngredientContainer heatedContainer = oven.getContents();
         Assert.assertTrue(35<=heatedContainer.getContent().getTemperature().getHotness()&& heatedContainer.getContent().getTemperature().getHotness() <=45);
         Assert.assertEquals(0F, heatedContainer.getContent().getTemperature().getColdness(), 1);
+        oven2.setTemperature(0F, 60F);
         oven2.addIngredient(heatedContainer);
         oven2.react();
         IngredientContainer heatedContainer2 = oven2.getContents();
@@ -91,11 +137,11 @@ public class DeviceTest {
         IngredientContainer heatedContainer3 = oven.getContents();
         Assert.assertTrue(55<=heatedContainer3.getContent().getTemperature().getHotness()&& heatedContainer3.getContent().getTemperature().getHotness()<=65 );
         Assert.assertEquals(0F, heatedContainer3.getContent().getTemperature().getColdness(), 1);
+
     }
 
     @Test
     public void TransmorgrifierTest() throws Exception{
-       Transmogrifier transmogrifier = new Transmogrifier();
        lab.addDevice(transmogrifier);
        Assert.assertFalse(container1.getContent().getState().isSolid());
        //test basic function
@@ -111,7 +157,6 @@ public class DeviceTest {
 
     @Test
     public void KettleTestName() throws Exception{
-        Kettle kettle = new Kettle();
         lab.addDevice(kettle);
         //mixing of two ingredients with same name
         kettle.addIngredient(container1);
@@ -137,10 +182,11 @@ public class DeviceTest {
         kettle.react();
         AlchemicIngredient testIngredient6 = kettle.getContents().getContent();
         Assert.assertEquals(testIngredient6.getFullName(),"An Alphabetically First Name mixed with Name One mixed with Name Three mixed with Name Two");
+        lab.removeDevice(kettle);
+        assertThrows(Device.NotInLaboratoryException.class, kettle::react);
     }
     @Test
     public void KettleTestStateAndStandardTemperature() throws Exception{
-        Kettle kettle = new Kettle();
         lab.addDevice(kettle);
         //mixing one ingredient close to [0,20] and one far away
         AlchemicIngredient closeTo20 = new AlchemicIngredient("Name",new Temperature(0,19), IngredientState.State.Powder,5);
@@ -162,7 +208,6 @@ public class DeviceTest {
     }
     @Test
     public void kettleTestQuantity() throws Exception{
-        Kettle kettle = new Kettle();
         lab.addDevice(kettle);
         //testing basic addition of ingredients of same state
         AlchemicIngredient testIngredient1 = new AlchemicIngredient(new Quantity(5, FluidUnit.SPOON));
@@ -185,7 +230,6 @@ public class DeviceTest {
     }
     @Test
     public void KettleTestTemperature() throws Exception{
-        Kettle kettle = new Kettle();
         lab.addDevice(kettle);
         AlchemicIngredient testIngredient1 = new AlchemicIngredient("Name",new Temperature(50,0),new IngredientState(IngredientState.State.Liquid),new Quantity(5,FluidUnit.SPOON));
         AlchemicIngredient testIngredient2 = new AlchemicIngredient("New Name",new Temperature(0,30),new IngredientState(IngredientState.State.Liquid),new Quantity(3,FluidUnit.SPOON));
@@ -198,7 +242,6 @@ public class DeviceTest {
     }
     @Test
     public void setLaboratoryTest() {
-        CoolingBox fridge = new CoolingBox();
         fridge.setLaboratory(lab);
         assertTrue(lab.getDevices().contains(fridge));
     }

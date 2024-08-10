@@ -32,7 +32,6 @@ public abstract class Device {
      */
     private Laboratory laboratory;
 
-
     /**********************************************************
      * Getters and Setters
      **********************************************************/

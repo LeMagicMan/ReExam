@@ -117,7 +117,7 @@ public class Temperature {
      */
     void heat(Float change){
         if(change <0){
-            cool(change);
+            cool(-change);
         }
         else{
             ArrayList<Float> newTemps = changeTemp(change,hotness,coldness);
@@ -133,8 +133,7 @@ public class Temperature {
      */
     void cool(Float change){
         if(change<0){
-            heat(change);
-
+            heat(-change);
         }
         else{
             ArrayList<Float> newTemps = changeTemp(change,coldness,hotness);

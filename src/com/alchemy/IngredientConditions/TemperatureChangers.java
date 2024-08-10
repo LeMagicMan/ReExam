@@ -22,6 +22,7 @@ public abstract class TemperatureChangers extends Device {
      * variable that defines the type of TemperatureChanger
      */
     private final TemperatureChangerType type;
+
     /**
      * variable to keep track of the amount the temperature in the device can deviate
      */
@@ -35,12 +36,23 @@ public abstract class TemperatureChangers extends Device {
         Heater("Heater"),
         Cooler("cooler");
 
+        /**
+         * Name of the temperatureChangerType
+         */
         private final String typeName;
 
+        /**
+         * constructor to make a new TemperatureChangerType
+         * @param typeName Name of the TemperatureChangerType
+         */
         TemperatureChangerType(String typeName) {
             this.typeName = typeName;
         }
 
+        /**
+         *
+         * @return name of the TemperatureChangerType
+         */
         public String getTypeName() {
             return typeName;
         }
